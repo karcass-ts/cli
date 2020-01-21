@@ -14,9 +14,8 @@ class SuccessCommand extends AbstractConsoleCommand {
 
 it('Must throw message about undefined static field', async () => {
     const cli = new Cli()
-    cli.add(FailCommand, () => new FailCommand())
     try {
-        await cli.run()
+        cli.add(FailCommand, () => new FailCommand())
     } catch (err) {
         return assert(err.message.indexOf('meta'))
     }
@@ -61,4 +60,17 @@ it('Must console.log "123"', async () => {
     await cli.run()
     console.log = reallyLog
     assert(out.indexOf('123') >= 0)
+})
+it('Must out command not found message', async () => {
+    const cli = new Cli()
+    process.argv[2] = 'dsdsd'
+    const reallyLog = console.log
+    let out = ''
+    const myLog = (text: string) => {
+        out += text
+    }
+    console.log = myLog
+    await cli.run()
+    console.log = reallyLog
+    assert(out.indexOf('not found') >= 0)
 })
