@@ -36,7 +36,11 @@ export interface MetaContainerInterface {
     meta: MetaInterface
 }
 
-export abstract class AbstractConsoleCommand {
+export interface ConsoleCommandInterface {
+    execute(): Promise<void>
+}
+
+export abstract class AbstractConsoleCommand implements ConsoleCommandInterface {
     public static meta?: MetaInterface
 
     public abstract async execute(): Promise<void>

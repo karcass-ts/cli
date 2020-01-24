@@ -1,9 +1,9 @@
-import { AbstractConsoleCommand, MetaContainerInterface } from './AbstractConsoleCommand'
+import { AbstractConsoleCommand, MetaContainerInterface, ConsoleCommandInterface } from './AbstractConsoleCommand'
 
 export class HelpCommand extends AbstractConsoleCommand {
     public static meta = { name: '--help', description: 'Show this help' }
 
-    public constructor(protected commands: (new (...args: any[]) => AbstractConsoleCommand)[]) {
+    public constructor(protected commands: (new (...args: any[]) => ConsoleCommandInterface)[]) {
         super()
     }
 

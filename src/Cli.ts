@@ -1,15 +1,15 @@
 import { Container } from '@karcass/container'
-import { AbstractConsoleCommand, MetaContainerInterface } from './AbstractConsoleCommand'
+import { MetaContainerInterface, ConsoleCommandInterface } from './AbstractConsoleCommand'
 import { HelpCommand } from './HelpCommand'
 
 export class Cli {
-    protected container = new Container<AbstractConsoleCommand>()
+    protected container = new Container<ConsoleCommandInterface>()
 
     public constructor(config: { useDefaultHelpCommand?: boolean } = {}) {
         config = { useDefaultHelpCommand: true, ...config }
         if (config.useDefaultHelpCommand) {
             this.container.add(HelpCommand, () => {
-                const commands: (new (...args: any[]) => AbstractConsoleCommand)[] = []
+                const commands: (new (...args: any[]) => ConsoleCommandInterface)[] = []
                 for (const key of this.container.getKeys()) {
                     if (typeof key !== 'string') {
                         commands.push(key)
@@ -20,7 +20,7 @@ export class Cli {
         }
     }
 
-    public add<T extends AbstractConsoleCommand>(constructor: new (...args: any[]) => T, initializer: () => T|Promise<T>) {
+    public add<T extends ConsoleCommandInterface>(constructor: new (...args: any[]) => T, initializer: () => T|Promise<T>) {
         const meta = (constructor as unknown as MetaContainerInterface).meta
         if (!meta || !meta.name) {
             throw new Error(`There is no static field "meta" in the ${constructor.name}`)
