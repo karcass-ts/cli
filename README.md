@@ -1,6 +1,6 @@
 # @karcass/cli
 
-CLI for <a href="https://github.com/karcass-ts/karcass">karcass</a> skeleton which helps to build simple CLI interfaces
+CLI for the <a href="https://github.com/karcass-ts/karcass">karcass</a> which helps to build simple CLI interfaces
 
 ## Installation
 
@@ -20,7 +20,7 @@ const cli = new Cli()
 class SomeCommand extends AbstractConsoleCommand {
     public static meta = { name: 'do:some', description: 'Does some action' }
     public async execute() {
-        console.log('It\'s just work!')
+        console.log('It just works!')
     }
 }
 cli.add(SomeCommand, () => new SomeCommand())
@@ -39,7 +39,7 @@ Executing &nbsp;`ts-node example.ts`&nbsp; will print:
 And executing of &nbsp;`ts-node example.js do:some`&nbsp; will print:
 
 ```
-It's just work!
+It just works!
 ```
 
 Also you can turn off default --help command behaviour by turning off corresponding setting:
